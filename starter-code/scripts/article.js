@@ -9,11 +9,11 @@ function Article (opts) {
   this.publishedOn = opts.publishedOn;
 }
 
-Article.prototype.toHtml = function() {
+Article.prototype.toHtml = function(scriptTemplateId) {
   // TODO: Use handlebars to render your articles!
   //       - Select your template from the DOM.
   //       - Now "compile" your template with Handlebars.
-
+  var template = Handlebars.compile($(scriptTemplateId).text());
   // DONE: If your template will use properties that aren't on the object yet, add them.
   //   Since your template can't hold any JS logic, we need to execute the logic here.
   //   The result is added to the object as a new property, which can then be referenced
@@ -24,6 +24,7 @@ Article.prototype.toHtml = function() {
 
   // TODO: Use the function that Handlebars gave you to return your filled-in
   //       html template for THIS article.
+  return template(this);
 };
 
 ourLocalData.sort(function(a,b) {
@@ -32,8 +33,4 @@ ourLocalData.sort(function(a,b) {
 
 ourLocalData.forEach(function(ele) {
   articles.push(new Article(ele));
-});
-
-articles.forEach(function(a){
-  $('#articles').append(a.toHtml());
 });

@@ -1,19 +1,13 @@
 // Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
 var articleView = {};
 
-articleView.populateFilters = function() {
-  $('article').each(function() {
-    if (!$(this).hasClass('template')) {
-      var val = $(this).find('address a').text();
-      var optionTag = '<option value="' + val + '">' + val + '</option>';
-      $('#author-filter').append(optionTag);
-
-      val = $(this).attr('data-category');
-      optionTag = '<option value="' + val + '">' + val + '</option>';
-      if ($('#category-filter option[value="' + val + '"]').length === 0) {
-        $('#category-filter').append(optionTag);
-      }
-    }
+articleView.render = function() {
+  articles.forEach(function(article) {
+    $('#articles').append(article.toHtml('#article-template'));
+    $('#author-filter').append(article.toHtml('#author-filter-template'));
+    if($('#category-filter option:contains("'+ article.category + '")').length === 0) {
+      $('#category-filter').append(article.toHtml('#category-filter-template'));
+    };
   });
 };
 
@@ -48,24 +42,30 @@ articleView.handleMainNav = function() {
     $('.tab-content').hide();
     $('#' + $(this).data('content')).fadeIn();
   });
-
-  $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
+// Let's now trigger a click on the first .tab element, to set up the page.
+  $('.main-nav .tab:first').click();
 };
 
 articleView.setTeasers = function() {
-  $('.article-body *:nth-of-type(n+2)').hide(); // Hide elements beyond the first 2 in any artcile body.
-
-  $('#articles').on('click', 'a.read-on', function(e) {
+  // Hide elements beyond the first 2 in any article body.
+  $('.article-body *:nth-of-type(n+2)').hide();
+  $('article').on('click', 'a.read-on', function(e) {
     e.preventDefault();
-    $(this).parent().find('*').fadeIn();
-    $(this).hide();
+    if($(this).text() === 'Read on →') {
+      $(this).parent().find('*').fadeIn();
+      $(this).html('Show Less &larr;');
+    } else {
+      $('body').animate({
+        scrollTop: ($(this).parent().offset().top)
+      },200);
+      $(this).html('Read on &rarr;');
+      $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
+    }
   });
 };
 
-$(document).ready(function() {
-  articleView.populateFilters();
-  articleView.handleCategoryFilter();
-  articleView.handleAuthorFilter();
-  articleView.handleMainNav();
-  articleView.setTeasers();
-});
+articleView.render();
+articleView.handleCategoryFilter();
+articleView.handleAuthorFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
