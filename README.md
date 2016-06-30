@@ -1,6 +1,6 @@
 ![CF](https://i.imgur.com/7v5ASc8.png) Lab 04: Templates
 =======
-[![Build Status](https://travis-ci.org/codefellows-seattle-301d9/04-templates.svg?branch=master)](https://travis-ci.org/codefellows-seattle-301d9/04-templates) [![GitHub issues](https://img.shields.io/badge/Stuck%3F-Ask%20for%20Help!-orange.svg)](https://github.com/codefellows/seattle-301d7/issues/new)
+[![Build Status](https://travis-ci.org/codefellows-seattle-301d9/04-templates.svg?branch=master)](https://travis-ci.org/codefellows-seattle-301d9/04-templates) [![GitHub issues](https://img.shields.io/badge/Stuck%3F-Ask%20for%20Help!-orange.svg)](https://github.com/codefellows/seattle-301d9/issues/new)
 
 Fix up the blog codebase, so it's properly using Handlebars templates.
 
