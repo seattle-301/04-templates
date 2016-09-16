@@ -1,4 +1,3 @@
-// Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
 var articleView = {};
 
 articleView.render = function() {
@@ -42,7 +41,6 @@ articleView.handleMainNav = function() {
     $('.tab-content').hide();
     $('#' + $(this).data('content')).fadeIn();
   });
-// Let's now trigger a click on the first .tab element, to set up the page.
   $('.main-nav .tab:first').click();
 };
 
